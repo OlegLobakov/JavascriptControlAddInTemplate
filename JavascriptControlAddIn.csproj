@@ -76,6 +76,8 @@
     <Content Include="Build Tools\7z.exe" />
     <Content Include="Microsoft Dynamics NAV Objects\ControlAddInManagement.txt" />
     <Content Include="Microsoft Dynamics NAV Objects\Javascript Control Add-in Demo Page.txt" />
+    <Content Include="Microsoft Dynamics NAV Objects\NAVView.png" />
+    <Content Include="Microsoft Dynamics NAV Objects\SchemeJSAddin.png" />
     <Content Include="Resource\Manifest.xml">
       <SubType>Designer</SubType>
     </Content>
