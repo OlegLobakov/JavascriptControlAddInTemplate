@@ -11,7 +11,7 @@ A Template that simplifies the development and debug of JavaScript controls for 
 
 ## How it works
 Tipical arhitecture of interaction between Javascript Control Add-In and Microsoft Dynamics NAV.
-1. Autostart Control Add-In
+1. Autostart Control Add-In when Page is opening.
 2. Fire trigger in Mirosoft Dynamics NAV.
 3. Fire trigger in Mirosoft Dynamics NAV.
 4. Run javascript code from Dynamics NAV.
