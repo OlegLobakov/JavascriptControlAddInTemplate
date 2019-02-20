@@ -4,7 +4,7 @@ A client control add-in enables you to add custom functionality to the Microsoft
 https://docs.microsoft.com/en-us/dynamics-nav/walkthrough--creating-and-using-a-client-control-add-in
 
 ## Description
-Template that simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
+A Template that simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
 <p align="center">
     <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/NAVView.png">
 </p>
@@ -91,5 +91,5 @@ RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV 
 ```
 4. Create new Key in project properies (Signing > Sign the assembly). 
 
-## Userfull Links
+## Usefull Links
 Autodeploy idea - http://vjeko.com/deploy-your-resource-automatically-from-visual-studio/
