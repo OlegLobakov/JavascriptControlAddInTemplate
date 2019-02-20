@@ -88,6 +88,7 @@ Function RegisterClientAddIn
 RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV Control Add-In Template" -Source "$($Folder)Resource\JavascriptControlAddIn.zip"
 
 ```
+4. Create new Key in project properies (Signing > Sign the assembly). 
 
 ## Userfull Links
 Autodeploy idea - http://vjeko.com/deploy-your-resource-automatically-from-visual-studio/
