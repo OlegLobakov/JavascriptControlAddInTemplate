@@ -2,9 +2,20 @@
 Control Add-In Template for Visual Studio.
 
 ## Description
-
+A simple template that simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
 <p align="center">
     <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/NAVView.png">
+</p>
+
+## How it works
+Tipical arhitecture of interaction between Javascript Control Add-In and Microsoft Dynamics NAV.
+1. Autostart Control Add-In
+2. Fire trigger in Mirosoft Dynamics NAV.
+3. Fire trigger in Mirosoft Dynamics NAV.
+4. Run javascript code from Dynamics NAV.
+4. Run javascript code from Dynamics NAV.
+<p align="center">
+    <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/SchemeJSAddin.png">
 </p>
 
 ## Installation
@@ -76,13 +87,6 @@ Function RegisterClientAddIn
 RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV Control Add-In Template" -Source "$($Folder)Resource\JavascriptControlAddIn.zip"
 
 ```
-## How it works
-Tipical arhitecture of the Javascript Control Add-In.
-1. Mainfest.xml - description of control add-in.
-2. controladdin.dll - interface description.
-<p align="center">
-    <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/SchemeJSAddin.png">
-</p>
 
-## Links
+## Userfull Links
 Autodeploy idea - http://vjeko.com/deploy-your-resource-automatically-from-visual-studio/
