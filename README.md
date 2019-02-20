@@ -50,7 +50,32 @@ echo
 echo start
 net start MicrosoftDynamicsNAVServer$DynamicsNAV90
 ```
+3. Edit InportResource.ps1. This powershell script import zip file to control add-in record in the Dynamics NAV. Change sn = dcce7894fd66d083 to sn key from output window.
+```Ruby
+Param(
+	[string]$Folder
+)
 
+Import-Module 'C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll'
+
+Function RegisterClientAddIn
+{
+    Param(
+		[String]$AddIn,
+		[String]$Source
+    )
+
+	$arg = "$AddIn"
+	if ($Source -ne "")
+	{
+		$arg = "$arg;$([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($Source)))"
+	}
+	Invoke-NAVCodeunit -ServerInstance DynamicsNAV90 -CodeunitId 99999 -MethodName RegisterJavaScriptAddInFromBase64 -Argument "$arg"
+}
+
+RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV Control Add-In Template" -Source "$($Folder)Resource\JavascriptControlAddIn.zip"
+
+```
 ## How it works
 Tipical arhitecture of the Javascript Control Add-In.
 1. Mainfest.xml - description of control add-in.
