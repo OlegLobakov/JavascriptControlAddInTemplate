@@ -1,5 +1,6 @@
 # Microsoft Dynamics NAV Javascript Control Add-In Template
 
+A client control add-in enables you to add custom functionality to the Microsoft Dynamics NAV Windows client and the Microsoft Dynamics NAV Web client by creating a control add-in that can run on both client platforms.
 https://docs.microsoft.com/en-us/dynamics-nav/walkthrough--creating-and-using-a-client-control-add-in
 
 ## Description
