@@ -91,5 +91,5 @@ RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV 
 ```
 4. Create new Key in project properies (Signing > Sign the assembly). 
 
-## Usefull Links
+## Useful Links
 Autodeploy idea - http://vjeko.com/deploy-your-resource-automatically-from-visual-studio/
