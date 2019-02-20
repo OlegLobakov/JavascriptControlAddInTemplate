@@ -9,7 +9,7 @@ Control Add-In Template for Visual Studio.
 
 ## Installation
 1. Install objects from "Microsoft Dynamics NAV Objects" folder in Dynamics NAV. Codeunit "Control Add-In Management" in ControlAddInManagement.fob contain RegisterJavaScriptAddInFromBase64 function that automatical deploy Control Add-In from Build process of the Visual Studio.
-2. Edit "Post-build event command line" in Project properties. This script deploy control add-in dll, restart Dynamics NAV and load javascript.zip to control add-in.
+2. Edit "Post-build event command line" in Project properties. This script deploy controladdin.dll, restart Dynamics NAV server and load javascript.zip to control add-in record of the NAV.
 ```ruby
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" > NUL
 
@@ -51,8 +51,10 @@ echo start
 net start MicrosoftDynamicsNAVServer$DynamicsNAV90
 ```
 
-## How it's work
+## How it works
 Tipical arhitecture of the Javascript Control Add-In.
+1. Mainfest.xml - description of control add-in.
+2. controladdin.dll - interface description.
 <p align="center">
     <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/SchemeJSAddin.png">
 </p>
