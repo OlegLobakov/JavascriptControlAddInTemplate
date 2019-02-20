@@ -1,8 +1,9 @@
 # Microsoft Dynamics NAV Javascript Control Add-In Template
-Control Add-In Template for Visual Studio.
+
+https://docs.microsoft.com/en-us/dynamics-nav/walkthrough--creating-and-using-a-client-control-add-in
 
 ## Description
-A simple template that simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
+Template that simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
 <p align="center">
     <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/NAVView.png">
 </p>
