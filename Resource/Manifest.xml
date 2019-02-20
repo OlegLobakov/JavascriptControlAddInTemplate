@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Manifest>
+  <!--Contains all of the resources such as the script, style sheet, and images that are required to display .--> 
+  <!--Each resource is included in a child element, such as <script>, <stylesheet>, and <image>-->
+  <Resources>
+    <Script>main.js</Script>
+    <StyleSheet>style.css</StyleSheet>
+  </Resources>
+
+  <!--Includes references to other JavaScripts from the manifest.--> 
+  <ScriptUrls>
+    <ScriptUrl>https://code.jquery.com/jquery-3.3.1.js</ScriptUrl>
+  </ScriptUrls>
+ 
+
+  <!--Contains the actual initialization code for the control add-in.--> 
+  <!--The code must be written inside a <![CDATA[]]> element to be parsed as code.--> 
+  <!--In this case - InitializeControlAddIn is function in main.js-->
+  <Script>
+    <![CDATA[
+        $(document).ready(function() 
+        { 
+            InitializeControlAddIn();
+        });
+        ]]>
+  </Script>
+
+  
+  <!--Used for refreshing the control add-in when the user refreshes the page by using--> 
+  <!--F5 or if the RefreshOnActivate is property is set on the page-->
+  <RefreshScript>
+        <![CDATA[
+             Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('ControlAddRefresh', null);
+        ]]>
+  </RefreshScript>
+  
+
+  <!--Used for reloading the control add-in script in following instances:-->
+  <!--In a FastTab, when the user selects Show More or Show Less. Applies to the Microsoft Dynamics NAV Windows client only.-->
+  <!--In Designer, when the user switches the display target. Applies to the Microsoft Dynamics NAV Web client only.-->
+  <!--If this element is not defined, then the <Script> elememt is used. This element only pertains to the Microsoft Dynamics NAV Windows client.-->
+  <RecreateScript>
+        <![CDATA[
+             Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('ControlAddRecreate', null);
+        ]]>
+  </RecreateScript>
+  
+  <!--Determine the minimum resize value of the control add-in.--> 
+  <!--These are set to definite sizes.--> 
+  <!--It is recommended to apply some size to the add-in using these elements.-->
+  <RequestedHeight>300</RequestedHeight>
+  <RequestedWidth>100</RequestedWidth>
+
+  <!--Determine how the control add-in behaves in the client when the window it is displayed in is resized.--> 
+  <!--The default value is false which means that the control add-in is not resized vertically, or horizontally.--> 
+  <!--The value true means that the control add-in is resized vertically, or horizontally.-->
+  <VerticalStretch>true</VerticalStretch>
+  <HorizontalStretch>true</HorizontalStretch>
+
+  <!--Specifies that the control add-in can be made smaller vertically and horizontally.-->
+  <VerticalShrink>true</VerticalShrink>
+  <HorizontalShrink>true</HorizontalShrink>
+  
+  <!--MinimumHeight specifies the minimum height that the control add-in can be shrunk to.-->
+  <MinimumHeight>300</MinimumHeight> 
+  <!--MaximumWidth specifies the maximum width that the control add-in can be stretched to.-->
+  <!--<MinimumWidth>200</MinimumWidth>-->--> 
+</Manifest>
+
+

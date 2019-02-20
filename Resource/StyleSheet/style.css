@@ -1,0 +1,7 @@
+﻿#controlAddIn {
+    opacity: 1;
+}
+
+    #controlAddIn:hover {
+        opacity: 0.6;
+    }

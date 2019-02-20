@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{599DA034-174F-4B31-BC41-F04C7E920839}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JavascriptControlAddIn</RootNamespace>
+    <AssemblyName>JavascriptControlAddIn</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>JavascriptControlAddInSign.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Resource|AnyCPU'">
+    <OutputPath>bin\Resource\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Dynamics.Framework.UI.Extensibility, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Framework.UI.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventHandlers.cs" />
+    <Compile Include="IHostControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Build Tools\7z.exe" />
+    <Content Include="Microsoft Dynamics NAV Objects\ControlAddInManagement.txt" />
+    <Content Include="Microsoft Dynamics NAV Objects\Javascript Control Add-in Demo Page.txt" />
+    <Content Include="Resource\Manifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resource\Script\main.js" />
+    <Content Include="Resource\StyleSheet\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Build Tools\ImportResource.ps1" />
+    <None Include="JavascriptControlAddInSign.pfx" />
+    <None Include="Microsoft Dynamics NAV Objects\ControlAddInManagement.fob" />
+    <None Include="Microsoft Dynamics NAV Objects\Javascript Control Add-in Demo Page.fob" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\Image\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" &gt; NUL
+
+echo Build NAVControlAddIn.zip
+
+set res=$(ProjectDir)Resource\JavascriptControlAddIn.zip
+
+echo %25res%25
+
+if exist "%25res%25" del "%25res%25"
+
+set zip1=$(ProjectDir)Build Tools\7z.exe
+set zip2=$(ProjectDir)Resource\*.*
+
+echo %25zip1%25
+echo %25zip2%25
+
+"$(ProjectDir)Build Tools\7z.exe" a -tzip -r "%25res%25" "$(ProjectDir)Resource\*.*" &gt; NUL
+
+echo Register Add-In in Microsoft Dynamics NAV 
+powershell -ExecutionPolicy unrestricted -command "&amp;'$(ProjectDir)Build Tools\ImportResource.ps1' -Folder '$(ProjectDir)'"
+
+if $(ConfigurationName) == Resource goto Resource
+
+sn -T "$(TargetPath)"
+
+echo copy files to localpath
+copy "$(TargetPath)" "C:\Program Files (x86)\Microsoft Dynamics NAV\90\RoleTailored Client\Add-ins" 
+
+echo copy files to server
+copy "$(TargetPath)" "C:\Program Files\Microsoft Dynamics NAV\90\Service\Add-ins" 
+
+echo restart Dynamics NAV 2016
+echo stop
+net stop MicrosoftDynamicsNAVServer$DynamicsNAV90
+
+echo 
+echo start
+net start MicrosoftDynamicsNAVServer$DynamicsNAV90
+
+:Resource</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

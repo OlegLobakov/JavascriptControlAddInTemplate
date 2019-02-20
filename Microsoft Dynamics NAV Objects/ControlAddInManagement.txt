@@ -1,0 +1,61 @@
+OBJECT Codeunit 99999 Control Add-In Management
+{
+  OBJECT-PROPERTIES
+  {
+    Date=06.10.15;
+    Time=17:03:01;
+    Modified=Yes;
+    Version List=Directions.EMEA.2015;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+
+    PROCEDURE RegisterJavaScriptAddInFromBase64@6150618(Content@6150613 : Text);
+    VAR
+      ClientAddIn@6150618 : Record 2000000069;
+      Delimiters@6150614 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Array";
+      Parts@6150616 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Array";
+      String@6150617 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.String";
+      Convert@6150620 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Convert";
+      MemoryStream@6150621 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.IO.MemoryStream";
+      OutStr@6150619 : OutStream;
+      Delimiter@6150615 : Char;
+    BEGIN
+      Delimiter := ';';
+      Delimiters := Delimiters.CreateInstance(GETDOTNETTYPE(Delimiter),1);
+      Delimiters.SetValue(Delimiter,0);
+
+      String := Content;
+      Parts := String.Split(Delimiters);
+
+      ClientAddIn."Add-in Name" := Parts.GetValue(0);
+      ClientAddIn."Public Key Token" := Parts.GetValue(1);
+      ClientAddIn.Version := Parts.GetValue(2);
+      ClientAddIn.Category := ClientAddIn.Category::"JavaScript Control Add-in";
+      IF NOT ClientAddIn.FIND() THEN
+        ClientAddIn.INSERT();
+
+      ClientAddIn.Description := Parts.GetValue(3);
+
+      IF Parts.Length > 4 THEN BEGIN
+        String := Parts.GetValue(4);
+        IF String.Length > 0 THEN BEGIN
+          MemoryStream := MemoryStream.MemoryStream(Convert.FromBase64String(Parts.GetValue(4)));
+          ClientAddIn.Resource.CREATEOUTSTREAM(OutStr);
+          COPYSTREAM(OutStr,MemoryStream);
+        END;
+      END;
+      ClientAddIn.MODIFY();
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

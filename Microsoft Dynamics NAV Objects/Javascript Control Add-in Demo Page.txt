@@ -1,0 +1,58 @@
+OBJECT Page 56009 Javascript Control Add-In Demo
+{
+  OBJECT-PROPERTIES
+  {
+    Date=19.02.19;
+    Time=18:54:23;
+    Modified=Yes;
+    Version List=Javascript Control Add-In Demo;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table18;
+    PageType=Document;
+  }
+  CONTROLS
+  {
+    { 1101981000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1101981001;1;Group  ;
+                Name=General;
+                GroupType=Group }
+
+    { 1101981002;2;Field  ;
+                Name=JSControl;
+                ControlAddIn=[JavascriptControlAddIn;PublicKeyToken=dcce7894fd66d083] }
+
+  }
+  CODE
+  {
+
+    EVENT JSControl@-1101981002::ControlAddIsReady@1();
+    BEGIN
+      CurrPage.JSControl.Update;
+    END;
+
+    EVENT JSControl@-1101981002::ControlAddRefresh@2();
+    BEGIN
+    END;
+
+    EVENT JSControl@-1101981002::ControlAddRecreate@3();
+    BEGIN
+    END;
+
+    EVENT JSControl@-1101981002::OnError@4(data@1101981000 : Text);
+    BEGIN
+      MESSAGE(data);
+    END;
+
+    EVENT JSControl@-1101981002::OnUpdate@5(data@1101981000 : Text);
+    BEGIN
+    END;
+
+    BEGIN
+    END.
+  }
+}
+
