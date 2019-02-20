@@ -50,7 +50,7 @@ echo
 echo start
 net start MicrosoftDynamicsNAVServer$DynamicsNAV90
 ```
-3. Edit InportResource.ps1. This powershell script import zip file to control add-in record in the Dynamics NAV. Change sn = dcce7894fd66d083 to sn key from output window.
+3. Edit ImportResource.ps1. This powershell script import js.zip file to the control add-in record in the Dynamics NAV. Change sn = dcce7894fd66d083 to sn key from output window project build process.
 ```Ruby
 Param(
 	[string]$Folder
