@@ -6,11 +6,11 @@ https://docs.microsoft.com/en-us/dynamics-nav/walkthrough--creating-and-using-a-
 ## Description
 A template simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
 Advantages:
-- Simple javascript example.
-- Auto deploy on Microsoft Dynamics NAV Server
-- Auto restart Microsoft Dynamics NAV Server
-- Auto create resource file with js code (xxxresources.zip)
-- Auto register in Control Add-In table and import js resources (xxxresources.zip).
+- [x] Simple javascript example.
+- [x] Auto deploy on Microsoft Dynamics NAV Server
+- [x] Auto restart Microsoft Dynamics NAV Server
+- [x] Auto create resource file with js code (xxxresources.zip)
+- [x] Auto register in Control Add-In table and import js resources (xxxresources.zip).
 
 <p align="center">
     <img src="https://github.com/setrange/NAVJSControlAddIn/blob/master/Microsoft%20Dynamics%20NAV%20Objects/NAVView.png">
@@ -33,9 +33,9 @@ To use this Visual Studio add-in project for develop your custom solution and au
 
 
 2. Edit ImportResource.ps1. This powershell script import JavascriptControlAddIn.zip file to the control add-in record in the Dynamics NAV using codeunit of previous step. 
-- Change sn = dcce7894fd66d083 to sn key from "Output" window project build process.
-- If need, change path to Dynamics NAV C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll
-- Change JavascriptControlAddIn.zip file name.
+   - [x] Change sn = dcce7894fd66d083 to sn key from "Output" window project build process.
+   - [x] If need, change path to Dynamics NAV C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll
+   - [x] Change JavascriptControlAddIn.zip file name.
 
 ```Ruby
 Param(
@@ -64,9 +64,9 @@ RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV 
 
 
 3. Edit "Post-build event command line" in Project properties. Post-build event commands is run auto after compile javascript code and build process in Visual Studio. This script deploy add-in dll to client and server, restart Dynamics NAV server and load JavascriptControlAddIn.zip to control add-in record of the NAV.
-- Change "JavascriptControlAddIn.zip" file name. Zip file consist of js files.
-- Change Instance name (DynamicsNAV90)
-- If need change Microsoft Dynamics installation path for client and server add-ins directories (C:\Program Files\Microsoft Dynamics NAV\90\Service\Add-ins)
+   - [x] Change "JavascriptControlAddIn.zip" file name. Zip file consist of js files.
+   - [x] Change Instance name (DynamicsNAV90)
+   - [ ] If need change Microsoft Dynamics installation path for client and server add-ins directories (C:\Program Files\Microsoft Dynamics NAV\90\Service\Add-ins)
 
 <p align="center">
     <img src="https://github.com/Setrange/JavascriptControlAddInTemplate/blob/master/Microsoft%20Dynamics%20NAV%20Objects/ControlAddInPostBuildEvent.png">
