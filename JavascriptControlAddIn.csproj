@@ -37,7 +37,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>JavascriptControlAddInSign.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>JavascriptControlAddInSign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Resource|AnyCPU'">
     <OutputPath>bin\Resource\</OutputPath>
@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Build Tools\ImportResource.ps1" />
-    <None Include="JavascriptControlAddInSign.pfx" />
+    <None Include="JavascriptControlAddInSign.snk" />
     <None Include="Microsoft Dynamics NAV Objects\ControlAddInManagement.fob" />
     <None Include="Microsoft Dynamics NAV Objects\Javascript Control Add-in Demo Page.fob" />
     <None Include="Properties\Settings.settings">
@@ -111,7 +111,7 @@
   <PropertyGroup>
     <PostBuildEvent>call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" &gt; NUL
 
-echo Build NAVControlAddIn.zip
+echo Build JavascriptControlAddIn.zip
 
 set res=$(ProjectDir)Resource\JavascriptControlAddIn.zip
 
