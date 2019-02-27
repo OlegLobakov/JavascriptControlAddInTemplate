@@ -28,12 +28,53 @@ Tipical arhitecture of interaction between Javascript Control Add-In and Microso
 </p>
 
 ## Installation
+To use this Visual Studio add-in project for develop your custom solution and autodeploy in NAV, you need to configure some settings:
 1. Install objects from "Microsoft Dynamics NAV Objects" folder in Dynamics NAV. Codeunit "Control Add-In Management" in ControlAddInManagement.fob contain RegisterJavaScriptAddInFromBase64 function that automatical deploy Control Add-In from Build process of the Visual Studio.
-2. Edit "Post-build event command line" in Project properties. This script deploy controladdin.dll, restart Dynamics NAV server and load javascript.zip to control add-in record of the NAV.
+
+2. Edit ImportResource.ps1. This powershell script import JavascriptControlAddIn.zip file to the control add-in record in the Dynamics NAV using codeunit of previous step. 
+- Change sn = dcce7894fd66d083 to sn key from "Output" window project build process.
+- If need, change path to Dynamics NAV C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll
+- Change JavascriptControlAddIn.zip file name.
+
+```Ruby
+Param(
+	[string]$Folder
+)
+
+Import-Module 'C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll'
+
+Function RegisterClientAddIn
+{
+    Param(
+		[String]$AddIn,
+		[String]$Source
+    )
+
+	$arg = "$AddIn"
+	if ($Source -ne "")
+	{
+		$arg = "$arg;$([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($Source)))"
+	}
+	Invoke-NAVCodeunit -ServerInstance DynamicsNAV90 -CodeunitId 99999 -MethodName RegisterJavaScriptAddInFromBase64 -Argument "$arg"
+}
+RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV Control Add-In Template" -Source "$($Folder)Resource\JavascriptControlAddIn.zip"
+```
+
+3. Edit "Post-build event command line" in Project properties. Post-build event commands is run auto after compile javascript code and build process in Visual Studio. This script deploy add-in dll to client and server, restart Dynamics NAV server and load JavascriptControlAddIn.zip to control add-in record of the NAV.
+- Change "JavascriptControlAddIn.zip" file name. Zip file consist of js files.
+- Change Instance name (DynamicsNAV90)
+- If need change Microsoft Dynamics installation path for client and server add-ins directories (C:\Program Files\Microsoft Dynamics NAV\90\Service\Add-ins)
+
+<p align="center">
+    <img src="https://github.com/Setrange/JavascriptControlAddInTemplate/blob/master/Microsoft%20Dynamics%20NAV%20Objects/ControlAddInPostBuildEvent.png">
+</p>
+
+Example
+
 ```ruby
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" > NUL
 
-echo Build NAVControlAddIn.zip
+echo Build JavascriptControlAddIn.zip
 
 set res=$(ProjectDir)Resource\JavascriptControlAddIn.zip
 
@@ -70,33 +111,6 @@ echo
 echo start
 net start MicrosoftDynamicsNAVServer$DynamicsNAV90
 ```
-3. Edit ImportResource.ps1. This powershell script import js.zip file to the control add-in record in the Dynamics NAV. Change sn = dcce7894fd66d083 to sn key from output window project build process.
-```Ruby
-Param(
-	[string]$Folder
-)
-
-Import-Module 'C:\Program Files\Microsoft Dynamics NAV\90\Service\Microsoft.Dynamics.Nav.Management.dll'
-
-Function RegisterClientAddIn
-{
-    Param(
-		[String]$AddIn,
-		[String]$Source
-    )
-
-	$arg = "$AddIn"
-	if ($Source -ne "")
-	{
-		$arg = "$arg;$([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($Source)))"
-	}
-	Invoke-NAVCodeunit -ServerInstance DynamicsNAV90 -CodeunitId 99999 -MethodName RegisterJavaScriptAddInFromBase64 -Argument "$arg"
-}
-
-RegisterClientAddIn -AddIn "JavascriptControlAddIn;dcce7894fd66d083;1.0.0.0;NAV Control Add-In Template" -Source "$($Folder)Resource\JavascriptControlAddIn.zip"
-
-```
-4. Create new Key in project properies (Signing > Sign the assembly). 
 
 ## Useful Links
 Autodeploy idea - http://vjeko.com/deploy-your-resource-automatically-from-visual-studio/
