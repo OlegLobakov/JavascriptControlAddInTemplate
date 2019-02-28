@@ -5,6 +5,7 @@ https://docs.microsoft.com/en-us/dynamics-nav/walkthrough--creating-and-using-a-
 
 ## Visual Studio project template
 A template simplifies the development and debug of JavaScript controls for Microsoft Dynamics NAV.
+
 Advantages:
 - [x] Simple javascript example.
 - [x] Auto deploy on Microsoft Dynamics NAV Server
